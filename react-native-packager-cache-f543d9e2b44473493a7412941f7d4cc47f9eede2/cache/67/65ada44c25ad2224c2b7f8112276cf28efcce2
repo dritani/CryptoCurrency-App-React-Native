@@ -1,0 +1,115 @@
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var _jsxFileName = '/Users/dritani/Code/Jobs of the future/React Native Stuff/react-native-redux-crypto-tracker-chapter-4/src/components/CryptoContainer.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _reactNative = require('react-native');
+
+var _reactNativeLoadingSpinnerOverlay = require('react-native-loading-spinner-overlay');
+
+var _reactNativeLoadingSpinnerOverlay2 = babelHelpers.interopRequireDefault(_reactNativeLoadingSpinnerOverlay);
+
+var _FetchCoinData = require('./../Actions/FetchCoinData');
+
+var _FetchCoinData2 = babelHelpers.interopRequireDefault(_FetchCoinData);
+
+var _CoinCard = require('./CoinCard');
+
+var _CoinCard2 = babelHelpers.interopRequireDefault(_CoinCard);
+
+var CryptoContainer = function (_Component) {
+    babelHelpers.inherits(CryptoContainer, _Component);
+
+    function CryptoContainer() {
+        babelHelpers.classCallCheck(this, CryptoContainer);
+        return babelHelpers.possibleConstructorReturn(this, (CryptoContainer.__proto__ || Object.getPrototypeOf(CryptoContainer)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(CryptoContainer, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.props.FetchCoinData();
+        }
+    }, {
+        key: 'renderCoinCards',
+        value: function renderCoinCards() {
+            var crypto = this.props.crypto;
+
+            return crypto.data.map(function (coin, index) {
+                return _react2.default.createElement(_CoinCard2.default, {
+                    key: index,
+                    coin_name: coin.name,
+                    symbol: coin.symbol,
+                    price_usd: coin.price_usd,
+                    percent_change_24h: coin.percent_change_24h,
+                    percent_change_7d: coin.percent_change_7d,
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 18
+                    }
+                });
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var crypto = this.props.crypto;
+            var contentContainer = styles.contentContainer;
+
+
+            if (crypto.isFetching) {
+                return _react2.default.createElement(
+                    _reactNative.View,
+                    {
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 37
+                        }
+                    },
+                    _react2.default.createElement(_reactNativeLoadingSpinnerOverlay2.default, {
+                        visible: crypto.isFetching,
+                        textContent: "Loading...",
+                        textStyle: { color: '#253145' },
+                        animation: 'fade',
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 38
+                        }
+                    })
+                );
+            }
+
+            return _react2.default.createElement(
+                _reactNative.ScrollView,
+                { contentContainerStyle: contentContainer, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 49
+                    }
+                },
+                this.renderCoinCards()
+            );
+        }
+    }]);
+    return CryptoContainer;
+}(_react.Component);
+
+var styles = {
+    contentContainer: {
+        paddingBottom: 100,
+        paddingTop: 55
+    }
+};
+
+function mapStateToProps(state) {
+    return {
+        crypto: state.crypto
+    };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { FetchCoinData: _FetchCoinData2.default })(CryptoContainer);

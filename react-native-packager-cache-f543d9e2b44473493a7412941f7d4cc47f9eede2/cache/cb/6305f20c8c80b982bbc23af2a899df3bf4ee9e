@@ -1,0 +1,4 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var apiBaseURL = exports.apiBaseURL = 'https://api.coinmarketcap.com';

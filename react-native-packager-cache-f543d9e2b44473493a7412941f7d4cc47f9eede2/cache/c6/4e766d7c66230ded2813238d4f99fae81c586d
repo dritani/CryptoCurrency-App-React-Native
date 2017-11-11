@@ -1,0 +1,13 @@
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _redux = require('redux');
+
+var _CryptoReducer = require('./CryptoReducer');
+
+var _CryptoReducer2 = babelHelpers.interopRequireDefault(_CryptoReducer);
+
+exports.default = (0, _redux.combineReducers)({
+    crypto: _CryptoReducer2.default
+});

@@ -1,0 +1,48 @@
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+
+    switch (action.type) {
+
+        case _ActionTypes.FETCHING_COIN_DATA:
+            return babelHelpers.extends({}, state, {
+                isFetching: true,
+                data: null,
+                hasError: false,
+                errorMessage: null
+            });
+
+        case _ActionTypes.FETCHING_COIN_DATA_SUCCESS:
+            return babelHelpers.extends({}, state, {
+                isFetching: false,
+                data: action.payload,
+                hasError: false,
+                errorMessage: null
+            });
+
+        case _ActionTypes.FETCHING_COIN_DATA_FAIL:
+            return babelHelpers.extends({}, state, {
+                isFetching: false,
+                data: action.payload,
+                hasError: true,
+                errorMessage: action.err
+            });
+
+        default:
+            return state;
+    }
+};
+
+var _ActionTypes = require('./../Utils/ActionTypes');
+
+var initialState = {
+    isFetching: null,
+    data: [],
+    hasError: false,
+    errorMessage: null
+};

@@ -1,0 +1,25 @@
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = FetchCoinData;
+
+var _axios = require('axios');
+
+var _axios2 = babelHelpers.interopRequireDefault(_axios);
+
+var _Constants = require('./../Utils/Constants');
+
+var _ActionTypes = require('./../Utils/ActionTypes');
+
+function FetchCoinData() {
+    return function (dispatch) {
+
+        dispatch({ type: _ActionTypes.FETCHING_COIN_DATA });
+
+        return _axios2.default.get(_Constants.apiBaseURL + '/v1/ticker/?limit=10').then(function (res) {
+            return dispatch({ type: _ActionTypes.FETCHING_COIN_DATA_SUCCESS, payload: res.data });
+        }).catch(function (err) {
+            return dispatch({ type: _ActionTypes.FETCHING_COIN_DATA_FAIL, payload: err });
+        });
+    };
+}
